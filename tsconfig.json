@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "noEmit": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  }
+}
