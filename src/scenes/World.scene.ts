@@ -4,23 +4,15 @@ import village_map from "../assets/tilemaps/world.json";
 import misa_atlas from "../assets/sprites/misa.png";
 import misa_atlas_json from "../assets/sprites/misa.json";
 import Player, { PlayerTexture } from "../Player";
-
-const misaTexture: PlayerTexture = {
-  key: "misa_atlas",
-  front: "misa-front",
-  back: "misa-back",
-  right: "misa-right",
-  left: "misa-left",
-  walkFront: "misa-front-walk",
-  walkBack: "misa-back-walk",
-  walkRight: "misa-right-walk",
-  walkLeft: "misa-left-walk",
-};
+import { createPlayerAnims } from "../utils/anims";
+import { sceneEvents } from "../utils/eventEmitter";
 
 export default class WorldScene extends Phaser.Scene {
   player: Player;
   cursors: Phaser.Types.Input.Keyboard.CursorKeys;
   signGroup: Phaser.Physics.Arcade.StaticGroup;
+  signBoards: Phaser.Types.Tilemaps.TiledObject[];
+
   constructor() {
     super({});
   }
@@ -28,9 +20,10 @@ export default class WorldScene extends Phaser.Scene {
     this.load.image("village_png", village_png);
     this.load.image("work_png", work_png);
     this.load.tilemapTiledJSON("village_map", village_map);
-    this.load.atlas(misaTexture.key, misa_atlas, misa_atlas_json);
+    this.load.atlas("misa_atlas", misa_atlas, misa_atlas_json);
   }
   create() {
+    this.scene.run("HUD");
     const map = this.make.tilemap({ key: "village_map" });
     const village_tileset = map.addTilesetImage(
       "village_atlas_16x",
@@ -55,6 +48,7 @@ export default class WorldScene extends Phaser.Scene {
       0,
       0
     );
+    const objectLayer = map.getObjectLayer("Objects");
 
     aboveLayer.setDepth(5);
 
@@ -65,47 +59,64 @@ export default class WorldScene extends Phaser.Scene {
       "Objects",
       (obj) => obj.name === "Spawn Point"
     );
-
-    this.player = new Player(this, misaTexture, spawnPoint.x, spawnPoint.y);
-
-    // this.player.setCollideWorldBounds(true);
-    this.physics.add.collider(this.player.sprite, worldLayer);
+    this.player = new Player(
+      this,
+      spawnPoint.x,
+      spawnPoint.y,
+      "misa_atlas",
+      "misa-front"
+    );
+    createPlayerAnims(this.anims);
+    this.physics.add.collider(this.player, worldLayer);
 
     this.signGroup = this.physics.add.staticGroup();
-    worldLayer.forEachTile((tile) => {
-      if (tile.index == 60) {
-        const x = tile.getCenterX();
-        const y = tile.getCenterY();
 
-        const sign = this.signGroup.create(x, y, null);
+    objectLayer.objects.forEach((obj) => {
+      if (obj.type === "Sign") {
+        const sign = this.signGroup.create(obj.x, obj.y, null);
+        sign.properties = obj.properties;
         sign.alpha = 0;
-        sign.text = "" + x;
-        // worldLayer.removeTileAt(tile.x, tile.y);
       }
     });
 
-    // const debugGraphics = this.add.graphics().setAlpha(0.75);
-    // worldLayer.renderDebug(debugGraphics, {
-    //   tileColor: null, // Color of non-colliding tiles
-    //   collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-    //   faceColor: new Phaser.Display.Color(40, 39, 37, 255), // Color of colliding face edges
-    // });
+    // this.initNarration();
 
-    // Phaser supports multiple cameras, but you can access the default camera like this:
     const camera = this.cameras.main;
-
-    camera.startFollow(this.player.sprite);
+    camera.startFollow(this.player);
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
     this.cursors = this.input.keyboard.createCursorKeys();
   }
 
   update() {
-    this.player.update();
-    if (this.physics.world.overlap(this.player.sprite, this.signGroup)) {
-      console.log(this.signGroup);
-      // this.player.destroy();
-      // this.scene.restart();
-    }
+    this.player.update(this.cursors);
+    this.physics.world.overlap(this.player, this.signGroup, this.showSignMessage);
+  }
+
+  // initNarration() {
+  //   this.narration = {
+  //     currentMessage: null,
+  //     messageQueue: [],
+  //     text: this.add.text(
+  //       this.player.sprite.x,
+  //       this.player.sprite.y - 32,
+  //       "Hi I am amal"
+  //     ),
+  //     push(message: string) {
+  //       this.messageQueue.push(message);
+  //     },
+  //     show() {
+  //       this.currentMessage=this.messageQueue[0] || null;
+  //       setTimeout(() => {
+  //         this.messageQueue.shift();
+  //       }, 3000);
+  //     },
+  //   };
+  // }
+  
+  showSignMessage(sprite,gameObject) {
+    const message=gameObject.properties.find((o) => o.name === "message")?.value;
+    sceneEvents.emit("message/new",message)
+    console.log({ message });
   }
 }

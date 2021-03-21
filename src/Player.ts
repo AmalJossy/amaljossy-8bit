@@ -9,127 +9,70 @@ export interface PlayerTexture {
   walkRight: string;
   walkLeft: string;
 }
-export default class Player {
-  scene: Phaser.Scene;
-  sprite: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
-  cursors: Phaser.Types.Input.Keyboard.CursorKeys;
-  texture: PlayerTexture;
+export default class Player extends Phaser.Physics.Arcade.Sprite {
+  
+  constructor(scene:Phaser.Scene, x:number, y:number, texture:string, frame?: string|number)  {
+    super(scene, x, y, texture, frame);
+    scene.add.existing(this);
+    scene.physics.add.existing(this);
+    this.setBodySize(30, 40).setOffset(0, 24).setScale(0.5);
 
-  constructor(
-    scene: Phaser.Scene,
-    texture: PlayerTexture,
-    x: number,
-    y: number
-  ) {
-    this.scene = scene;
-    this.texture = texture;
-
-    // Create the physics-based sprite that we will move around and animate
-    this.sprite = scene.physics.add
-      .sprite(x, y, texture.key, texture.front)
-      .setSize(30, 40)
-      .setOffset(0, 24)
-      .setScale(0.5);
-
-    this.cursors = this.scene.input.keyboard.createCursorKeys();
-
-    // Create the animations we need from the player spritesheet
-    const anims = this.scene.anims;
-    anims.create({
-      key: texture.walkLeft,
-      frames: anims.generateFrameNames(texture.key, {
-        prefix: `${texture.walkLeft}.`,
-        start: 0,
-        end: 3,
-        zeroPad: 3,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-    anims.create({
-      key: texture.walkRight,
-      frames: anims.generateFrameNames(texture.key, {
-        prefix: `${texture.walkRight}.`,
-        start: 0,
-        end: 3,
-        zeroPad: 3,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-    anims.create({
-      key: texture.walkFront,
-      frames: anims.generateFrameNames(texture.key, {
-        prefix: `${texture.walkFront}.`,
-        start: 0,
-        end: 3,
-        zeroPad: 3,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
-    anims.create({
-      key: texture.walkBack,
-      frames: anims.generateFrameNames(texture.key, {
-        prefix: `${texture.walkBack}.`,
-        start: 0,
-        end: 3,
-        zeroPad: 3,
-      }),
-      frameRate: 10,
-      repeat: -1,
-    });
+    // this.body.onCollide = true;
+    // scene.physics.world.on(Phaser.Physics.Arcade.Events.COLLIDE, this.handleTileCollision, this);
   }
 
-  update() {
+  // private handleTileCollision(gameObject: Phaser.GameObjects.GameObject, tile: Phaser.Tilemaps.Tile) {
+  //   if(gameObject != this) return;
+  //   console.log(tile);
+  // }
+
+  update(cursors: Phaser.Types.Input.Keyboard.CursorKeys) {
+    if(!cursors) return;
     const speed = 175;
-    const prevVelocity = this.sprite.body.velocity.clone();
+    const prevVelocity = this.body.velocity.clone();
 
     // Stop any previous movement from the last frame
-    this.sprite.body.setVelocity(0);
+    this.setVelocity(0);
 
     // Horizontal movement
-    if (this.cursors.left.isDown) {
-      this.sprite.body.setVelocityX(-speed);
-    } else if (this.cursors.right.isDown) {
-      this.sprite.body.setVelocityX(speed);
+    if (cursors.left.isDown) {
+      this.setVelocityX(-speed);
+    } else if (cursors.right.isDown) {
+      this.setVelocityX(speed);
     }
 
     // Vertical movement
-    if (this.cursors.up.isDown) {
-      this.sprite.body.setVelocityY(-speed);
-    } else if (this.cursors.down.isDown) {
-      this.sprite.body.setVelocityY(speed);
+    if (cursors.up.isDown) {
+      this.setVelocityY(-speed);
+    } else if (cursors.down.isDown) {
+      this.setVelocityY(speed);
     }
 
     // Normalize and scale the velocity so that player can't move faster along a diagonal
-    this.sprite.body.velocity.normalize().scale(speed);
+    this.body.velocity.normalize().scale(speed);
 
     // Update the animation last and give left/right animations precedence over up/down animations
-    if (this.cursors.left.isDown) {
-      this.sprite.anims.play(this.texture.walkLeft, true);
-    } else if (this.cursors.right.isDown) {
-      this.sprite.anims.play(this.texture.walkRight, true);
-    } else if (this.cursors.up.isDown) {
-      this.sprite.anims.play(this.texture.walkBack, true);
-    } else if (this.cursors.down.isDown) {
-      this.sprite.anims.play(this.texture.walkFront, true);
+    if (cursors.left.isDown) {
+      this.anims.play("misa-left-walk", true);
+    } else if (cursors.right.isDown) {
+      this.anims.play("misa-right-walk", true);
+    } else if (cursors.up.isDown) {
+      this.anims.play("misa-back-walk", true);
+    } else if (cursors.down.isDown) {
+      this.anims.play("misa-front-walk", true);
     } else {
-      this.sprite.anims.stop();
+      this.anims.stop();
 
       // If we were moving, pick and idle frame to use
       if (prevVelocity.x < 0)
-        this.sprite.setTexture(this.texture.key, this.texture.left);
+        this.setTexture(this.texture.key, "misa-left");
       else if (prevVelocity.x > 0)
-        this.sprite.setTexture(this.texture.key, this.texture.right);
+        this.setTexture(this.texture.key, "misa-right");
       else if (prevVelocity.y < 0)
-        this.sprite.setTexture(this.texture.key, this.texture.back);
+        this.setTexture(this.texture.key, "misa-back");
       else if (prevVelocity.y > 0)
-        this.sprite.setTexture(this.texture.key, this.texture.front);
+        this.setTexture(this.texture.key, "misa-front");
     }
   }
 
-  destroy() {
-    this.sprite.destroy();
-  }
 }

@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import HUD from "./scenes/HUD.scene";
 
 import WorldScene from "./scenes/World.scene";
 
@@ -20,7 +21,7 @@ const Config = {
       gravity: { y: 0 },
     },
   },
-  scene: [WorldScene],
+  scene: [WorldScene, HUD],
 };
 
 export default new Phaser.Game(Config);
