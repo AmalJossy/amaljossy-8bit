@@ -1,6 +1,7 @@
+import { Scene } from "phaser";
 import { sceneEvents } from "../utils/eventEmitter";
 
-export default class HUD extends Phaser.Scene {
+export default class HUD extends Scene {
   text: Phaser.GameObjects.Text;
   constructor() {
     super({

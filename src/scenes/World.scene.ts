@@ -6,8 +6,9 @@ import misa_atlas_json from "../assets/sprites/misa.json";
 import Player, { PlayerTexture } from "../Player";
 import { createPlayerAnims } from "../utils/anims";
 import { sceneEvents } from "../utils/eventEmitter";
+import { Scene } from "phaser";
 
-export default class WorldScene extends Phaser.Scene {
+export default class WorldScene extends Scene {
   player: Player;
   cursors: Phaser.Types.Input.Keyboard.CursorKeys;
   signGroup: Phaser.Physics.Arcade.StaticGroup;
