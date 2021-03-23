@@ -13,9 +13,10 @@ export default class WorldScene extends Scene {
   cursors: Phaser.Types.Input.Keyboard.CursorKeys;
   signGroup: Phaser.Physics.Arcade.StaticGroup;
   signBoards: Phaser.Types.Tilemaps.TiledObject[];
+  message: string;
 
   constructor() {
-    super({});
+    super({ key: "world" });
   }
   preload() {
     this.load.image("village_png", village_png);
@@ -77,6 +78,7 @@ export default class WorldScene extends Scene {
         const sign = this.signGroup.create(obj.x, obj.y, null);
         sign.properties = obj.properties;
         sign.alpha = 0;
+        console.log(sign);
       }
     });
 
@@ -91,7 +93,14 @@ export default class WorldScene extends Scene {
 
   update() {
     this.player.update(this.cursors);
-    this.physics.world.overlap(this.player, this.signGroup, this.showSignMessage);
+    this.physics.world.overlap(
+      this.player,
+      this.signGroup,
+      this.setSignMessage,
+      null,
+      this
+    );
+    this.showSignMessage();
   }
 
   // initNarration() {
@@ -114,10 +123,18 @@ export default class WorldScene extends Scene {
   //     },
   //   };
   // }
-  
-  showSignMessage(sprite,gameObject) {
-    const message=gameObject.properties.find((o) => o.name === "message")?.value;
-    sceneEvents.emit("message/new",message)
-    console.log({ message });
+
+  // @ts-ignore //TODO optimize, debounce ?
+  setSignMessage(sprite, gameObject) {
+    this.message = gameObject.properties.find(
+      (o) => o.name === "message"
+    )?.value;
+    // console.log(this.message);
+  }
+  showSignMessage() {
+    // console.log("emit " + this.message);
+    sceneEvents.emit("message/new", this.message);
+    if(this.message!=="")
+      this.message=""
   }
 }

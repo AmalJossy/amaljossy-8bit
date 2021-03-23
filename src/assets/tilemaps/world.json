@@ -115,11 +115,11 @@
                          "value":"Interned at EY-Cybersecurity from April-2018 to June-2018. "
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Sign",
                  "visible":true,
                  "width":16,
-                 "x":768.13,
-                 "y":1024.25
+                 "x":768,
+                 "y":1024
                 }, 
                 {
                  "gid":60,
@@ -133,11 +133,11 @@
                          "value":"Worked at Envestnet from Aug-2019 to Mar-2020. Trusted with developing SPAs for the platform"
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Sign",
                  "visible":true,
                  "width":16,
                  "x":768,
-                 "y":848.13
+                 "y":848
                 }, 
                 {
                  "gid":60,
@@ -148,14 +148,14 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"Working at oracle since March-2020. Tasked with enabling REST services for exisitng product functionalities"
+                         "value":"Working at oracle since March-2020. Tasked with enabling REST services for existing product functionalities"
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Sign",
                  "visible":true,
                  "width":16,
-                 "x":767.75,
-                 "y":640.13
+                 "x":768,
+                 "y":640
                 }, 
                 {
                  "gid":60,
@@ -169,11 +169,11 @@
                          "value":"The sign has faded"
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Sign",
                  "visible":true,
                  "width":16,
                  "x":432,
-                 "y":688.005
+                 "y":688
                 }, 
                 {
                  "gid":60,
@@ -187,11 +187,11 @@
                          "value":"The sign has faded"
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Sign",
                  "visible":true,
                  "width":16,
-                 "x":431.978754940711,
-                 "y":783.983754940712
+                 "x":432,
+                 "y":784
                 }, 
                 {
                  "gid":60,
@@ -205,11 +205,11 @@
                          "value":"The sign has faded"
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"Sign",
                  "visible":true,
                  "width":16,
-                 "x":432.005681818182,
-                 "y":591.971590909091
+                 "x":432,
+                 "y":592
                 }],
          "opacity":1,
          "type":"objectgroup",
