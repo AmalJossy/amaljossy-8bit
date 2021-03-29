@@ -1,5 +1,4 @@
 import Phaser from "phaser";
-import HUD from "./scenes/HUD.scene";
 
 import WorldScene from "./scenes/World.scene";
 
@@ -7,7 +6,7 @@ const Config = {
   type: Phaser.AUTO,
   width: 800,
   height: 450,
-  parent: "game-container",
+  parent: "game-area",
   pixelArt: true,
 
   // Sets game scaling
@@ -21,7 +20,7 @@ const Config = {
       gravity: { y: 0 },
     },
   },
-  scene: [WorldScene, HUD],
+  scene: [WorldScene],
 };
 
 export default new Phaser.Game(Config);

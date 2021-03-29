@@ -6,20 +6,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Amal Jossy</title>
     <style>
+      * {
+        box-sizing: border-box;
+      }
       body,
       html,
-      div#game-container {
+      div#game-area {
         margin: 0;
         padding: 0;
         height: 100%;
         width: 100%;
       }
-      div#game-container{
-          background-color: grey;
+      div#game-area {
+        background-color: grey;
+      }
+      div.fixed-container {
+        position: fixed;
+        width: 100%;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 120px;
+        display: flex;
+        justify-content: center;
+      }
+      div#message-box {
+        background-color: rgb(224, 224, 224);
+        border: solid 3px black;
+        border-radius: 5px;
+        height: 100px;
+        width: 60%;
+        visibility: hidden;
+      }
+      p#message-area {
+        font-family: "Courier";
+        font-size: 20px;
+        overflow: hidden;
+        white-space: normal;
+        margin: 10px 0 0 10px;
+        width: 100%;
+      }
+      p.typewriter {
+        animation: type .3s steps(16, end);
+      }
+      p.typewriter:nth-child(2) {
+        animation: type2 .6s steps(16, end);
+      }
+
+      @keyframes type {
+        from {width: 0;white-space: nowrap;}
+      }
+
+      @keyframes type2 {
+        0% {width: 0;}
+        50% {width: 0;}
+        100% {width: 100;}
       }
     </style>
   </head>
   <body>
-    <div id="game-container"></div>
+    <div id="game-area"></div>
+    <div class="fixed-container">
+      <div id="message-box"><p id="message-area">sample text</p></div>
+    </div>
   </body>
 </html>
