@@ -2,9 +2,9 @@ export const createPlayerAnims = (
   anims: Phaser.Animations.AnimationManager
 ): void => {
   anims.create({
-    key: "misa-left-walk",
-    frames: anims.generateFrameNames("misa_atlas", {
-      prefix: "misa-left-walk.",
+    key: "player-left-walk",
+    frames: anims.generateFrameNames("player_atlas", {
+      prefix: "player-left-walk.",
       start: 0,
       end: 3,
       zeroPad: 3,
@@ -13,9 +13,9 @@ export const createPlayerAnims = (
     repeat: -1,
   });
   anims.create({
-    key: "misa-right-walk",
-    frames: anims.generateFrameNames("misa_atlas", {
-      prefix: "misa-right-walk.",
+    key: "player-right-walk",
+    frames: anims.generateFrameNames("player_atlas", {
+      prefix: "player-right-walk.",
       start: 0,
       end: 3,
       zeroPad: 3,
@@ -24,9 +24,9 @@ export const createPlayerAnims = (
     repeat: -1,
   });
   anims.create({
-    key: "misa-front-walk",
-    frames: anims.generateFrameNames("misa_atlas", {
-      prefix: "misa-front-walk.",
+    key: "player-front-walk",
+    frames: anims.generateFrameNames("player_atlas", {
+      prefix: "player-front-walk.",
       start: 0,
       end: 3,
       zeroPad: 3,
@@ -35,9 +35,9 @@ export const createPlayerAnims = (
     repeat: -1,
   });
   anims.create({
-    key: "misa-back-walk",
-    frames: anims.generateFrameNames("misa_atlas", {
-      prefix: "misa-back-walk.",
+    key: "player-back-walk",
+    frames: anims.generateFrameNames("player_atlas", {
+      prefix: "player-back-walk.",
       start: 0,
       end: 3,
       zeroPad: 3,

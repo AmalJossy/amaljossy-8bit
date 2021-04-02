@@ -1,8 +1,8 @@
 import village_png from "../assets/tilesets/village_atlas_16x.png";
 import work_png from "../assets/tilesets/work.png";
 import village_map from "../assets/tilemaps/world.json";
-import misa_atlas from "../assets/sprites/misa.png";
-import misa_atlas_json from "../assets/sprites/misa.json";
+import player_atlas from "../assets/sprites/player.png";
+import player_atlas_json from "../assets/sprites/player.json";
 import Player, { PlayerTexture } from "../Player";
 import { createPlayerAnims } from "../utils/anims";
 import { Scene } from "phaser";
@@ -22,7 +22,7 @@ export default class WorldScene extends Scene {
     this.load.image("village_png", village_png);
     this.load.image("work_png", work_png);
     this.load.tilemapTiledJSON("village_map", village_map);
-    this.load.atlas("misa_atlas", misa_atlas, misa_atlas_json);
+    this.load.atlas("player_atlas", player_atlas, player_atlas_json);
   }
   create() {
     
@@ -65,8 +65,8 @@ export default class WorldScene extends Scene {
       this,
       spawnPoint.x,
       spawnPoint.y,
-      "misa_atlas",
-      "misa-front"
+      "player_atlas",
+      "player-front"
     );
     createPlayerAnims(this.anims);
     this.physics.add.collider(this.player, worldLayer);

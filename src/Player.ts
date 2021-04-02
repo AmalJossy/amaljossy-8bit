@@ -53,25 +53,25 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     // Update the animation last and give left/right animations precedence over up/down animations
     if (cursors.left.isDown) {
-      this.anims.play("misa-left-walk", true);
+      this.anims.play("player-left-walk", true);
     } else if (cursors.right.isDown) {
-      this.anims.play("misa-right-walk", true);
+      this.anims.play("player-right-walk", true);
     } else if (cursors.up.isDown) {
-      this.anims.play("misa-back-walk", true);
+      this.anims.play("player-back-walk", true);
     } else if (cursors.down.isDown) {
-      this.anims.play("misa-front-walk", true);
+      this.anims.play("player-front-walk", true);
     } else {
       this.anims.stop();
 
       // If we were moving, pick and idle frame to use
       if (prevVelocity.x < 0)
-        this.setTexture(this.texture.key, "misa-left");
+        this.setTexture(this.texture.key, "player-left");
       else if (prevVelocity.x > 0)
-        this.setTexture(this.texture.key, "misa-right");
+        this.setTexture(this.texture.key, "player-right");
       else if (prevVelocity.y < 0)
-        this.setTexture(this.texture.key, "misa-back");
+        this.setTexture(this.texture.key, "player-back");
       else if (prevVelocity.y > 0)
-        this.setTexture(this.texture.key, "misa-front");
+        this.setTexture(this.texture.key, "player-front");
     }
   }
 
