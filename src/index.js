@@ -6,13 +6,13 @@ const Config = {
   type: Phaser.AUTO,
   width: 800,
   height: 450,
-  parent: "game-area",
   pixelArt: true,
 
   // Sets game scaling
   scale: {
-      mode: Phaser.Scale.FIT,               // Fit to window
-      autoCenter: Phaser.Scale.CENTER_BOTH  // Center vertically and horizontally
+      mode: Phaser.Scale.ENVELOP,               // Fit to window
+      autoCenter: Phaser.Scale.CENTER_BOTH,  // Center vertically and horizontally
+      parent: "game-area",
   },
   physics: {
     default: "arcade",
