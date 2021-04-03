@@ -29,7 +29,9 @@ export function getDpad() {
     up: false,
     down: false,
   };
-
+  window.addEventListener('touchstart', () =>{
+    document.querySelector(".dpad").classList.remove("not-displayed");
+  }, {once:true});
   const directions = {
     left: "left",
     right: "right",
@@ -49,11 +51,11 @@ export function getDpad() {
     upButton.classList.remove("pressed");
     downButton.classList.remove("pressed");
   };
-  document.body.addEventListener("mousedown", () => {
+  document.body.addEventListener("touchstart", () => {
     // console.log("mouse is down");
     isPressed = true;
   });
-  document.body.addEventListener("mouseup", () => {
+  document.body.addEventListener("touchend", () => {
     // console.log("mouse is up");
     isPressed = false;
     held_directions.left = false;
@@ -99,29 +101,15 @@ export function getDpad() {
     handleDpadPress(directions.down, true)
   );
 
-  leftButton.addEventListener("mousedown", (e) =>
-    handleDpadPress(directions.left, true)
-  );
-  upButton.addEventListener("mousedown", (e) =>
-    handleDpadPress(directions.up, true)
-  );
-  rightButton.addEventListener("mousedown", (e) =>
-    handleDpadPress(directions.right, true)
-  );
-  downButton.addEventListener("mousedown", (e) =>
-    handleDpadPress(directions.down, true)
-  );
-
-  leftButton.addEventListener("mouseover", (e) =>
+  leftButton.addEventListener("touchend", (e) =>
     handleDpadPress(directions.left)
   );
-  upButton.addEventListener("mouseover", (e) => handleDpadPress(directions.up));
-  rightButton.addEventListener("mouseover", (e) =>
+  upButton.addEventListener("touchend", (e) => handleDpadPress(directions.up));
+  rightButton.addEventListener("touchend", (e) =>
     handleDpadPress(directions.right)
   );
-  downButton.addEventListener("mouseover", (e) =>
+  downButton.addEventListener("touchend", (e) =>
     handleDpadPress(directions.down)
   );
-
   return held_directions;
 }

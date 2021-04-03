@@ -7,7 +7,7 @@
     <title>Amal Jossy</title>
     <style>
       :root {
-        --pixel-size: 2px;
+        --pixel-size: 4px;
       }
       * {
         box-sizing: border-box;
@@ -127,6 +127,10 @@
       .dpad {
         user-select: none;
       }
+
+      .not-displayed {
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -134,7 +138,7 @@
     <div class="fixed-container">
       <div id="message-box"><p id="message-area">sample text</p></div>
     </div>
-    <div class="dpad">
+    <div class="dpad not-displayed">
       <div class="DemoDirectionUI flex-center">
         <button class="dpad-button dpad-left">
           <svg

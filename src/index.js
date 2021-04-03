@@ -23,4 +23,4 @@ const Config = {
   scene: [WorldScene],
 };
 
-export default new Phaser.Game(Config);
+new Phaser.Game(Config);
