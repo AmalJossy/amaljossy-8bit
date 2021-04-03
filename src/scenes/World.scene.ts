@@ -6,7 +6,7 @@ import misa_atlas_json from "../assets/sprites/misa.json";
 import Player, { PlayerTexture } from "../Player";
 import { createPlayerAnims } from "../utils/anims";
 import { Scene } from "phaser";
-import { writeMessage } from "../utils/hud";
+import { DpadDirections, getDpad, writeMessage } from "../utils/hud";
 
 export default class WorldScene extends Scene {
   player: Player;
@@ -14,6 +14,7 @@ export default class WorldScene extends Scene {
   signGroup: Phaser.Physics.Arcade.StaticGroup;
   signBoards: Phaser.Types.Tilemaps.TiledObject[];
   message: string;
+  dpadDirections: DpadDirections;
 
   constructor() {
     super({ key: "world" });
@@ -87,10 +88,11 @@ export default class WorldScene extends Scene {
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
     this.cursors = this.input.keyboard.createCursorKeys();
+    this.dpadDirections = getDpad()
   }
 
   update() {
-    this.player.update(this.cursors);
+    this.player.update(this.cursors,this.dpadDirections);
     this.physics.world.overlap(
       this.player,
       this.signGroup,
@@ -105,6 +107,7 @@ export default class WorldScene extends Scene {
   // @ts-ignore //TODO optimize, debounce ?
   setSignMessage(sprite, gameObject) {
     this.message = gameObject.properties.find(
+      // @ts-ignore
       (o) => o.name === "message"
     )?.value;
   }

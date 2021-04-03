@@ -1,3 +1,5 @@
+import { DpadDirections } from "./utils/hud";
+
 export interface PlayerTexture {
   key: string;
   front: string;
@@ -10,8 +12,13 @@ export interface PlayerTexture {
   walkLeft: string;
 }
 export default class Player extends Phaser.Physics.Arcade.Sprite {
-  
-  constructor(scene:Phaser.Scene, x:number, y:number, texture:string, frame?: string|number)  {
+  constructor(
+    scene: Phaser.Scene,
+    x: number,
+    y: number,
+    texture: string,
+    frame?: string | number
+  ) {
     super(scene, x, y, texture, frame);
     scene.add.existing(this);
     scene.physics.add.existing(this);
@@ -26,8 +33,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   //   console.log(tile);
   // }
 
-  update(cursors: Phaser.Types.Input.Keyboard.CursorKeys) {
-    if(!cursors) return;
+  update(
+    cursors: Phaser.Types.Input.Keyboard.CursorKeys,
+    dpadDirections: DpadDirections
+  ) {
+    if (!cursors) return;
     const speed = 175;
     const prevVelocity = this.body.velocity.clone();
 
@@ -35,16 +45,16 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.setVelocity(0);
 
     // Horizontal movement
-    if (cursors.left.isDown) {
+    if (cursors.left.isDown || dpadDirections.left) {
       this.setVelocityX(-speed);
-    } else if (cursors.right.isDown) {
+    } else if (cursors.right.isDown || dpadDirections.right) {
       this.setVelocityX(speed);
     }
 
     // Vertical movement
-    if (cursors.up.isDown) {
+    if (cursors.up.isDown || dpadDirections.up) {
       this.setVelocityY(-speed);
-    } else if (cursors.down.isDown) {
+    } else if (cursors.down.isDown || dpadDirections.down) {
       this.setVelocityY(speed);
     }
 
@@ -52,20 +62,19 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.body.velocity.normalize().scale(speed);
 
     // Update the animation last and give left/right animations precedence over up/down animations
-    if (cursors.left.isDown) {
+    if (cursors.left.isDown || dpadDirections.left) {
       this.anims.play("misa-left-walk", true);
-    } else if (cursors.right.isDown) {
+    } else if (cursors.right.isDown || dpadDirections.right) {
       this.anims.play("misa-right-walk", true);
-    } else if (cursors.up.isDown) {
+    } else if (cursors.up.isDown || dpadDirections.up) {
       this.anims.play("misa-back-walk", true);
-    } else if (cursors.down.isDown) {
+    } else if (cursors.down.isDown || dpadDirections.down) {
       this.anims.play("misa-front-walk", true);
     } else {
       this.anims.stop();
 
       // If we were moving, pick and idle frame to use
-      if (prevVelocity.x < 0)
-        this.setTexture(this.texture.key, "misa-left");
+      if (prevVelocity.x < 0) this.setTexture(this.texture.key, "misa-left");
       else if (prevVelocity.x > 0)
         this.setTexture(this.texture.key, "misa-right");
       else if (prevVelocity.y < 0)
@@ -74,5 +83,4 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.setTexture(this.texture.key, "misa-front");
     }
   }
-
 }
