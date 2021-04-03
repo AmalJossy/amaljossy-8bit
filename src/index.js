@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import Preload from "./scenes/Preload.scene";
 
 import WorldScene from "./scenes/World.scene";
 
@@ -10,9 +11,9 @@ const Config = {
 
   // Sets game scaling
   scale: {
-      mode: Phaser.Scale.ENVELOP,               // Fit to window
-      autoCenter: Phaser.Scale.CENTER_BOTH,  // Center vertically and horizontally
-      parent: "game-area",
+    mode: Phaser.Scale.ENVELOP, // Fit to window
+    autoCenter: Phaser.Scale.CENTER_BOTH, // Center vertically and horizontally
+    parent: "game-area",
   },
   physics: {
     default: "arcade",
@@ -20,7 +21,7 @@ const Config = {
       gravity: { y: 0 },
     },
   },
-  scene: [WorldScene],
+  scene: [Preload, WorldScene],
 };
 
 new Phaser.Game(Config);

@@ -1,8 +1,3 @@
-import village_png from "../assets/tilesets/village_atlas_16x.png";
-import work_png from "../assets/tilesets/work.png";
-import village_map from "../assets/tilemaps/world.json";
-import misa_atlas from "../assets/sprites/misa.png";
-import misa_atlas_json from "../assets/sprites/misa.json";
 import Player, { PlayerTexture } from "../Player";
 import { createPlayerAnims } from "../utils/anims";
 import { Scene } from "phaser";
@@ -18,12 +13,6 @@ export default class WorldScene extends Scene {
 
   constructor() {
     super({ key: "world" });
-  }
-  preload() {
-    this.load.image("village_png", village_png);
-    this.load.image("work_png", work_png);
-    this.load.tilemapTiledJSON("village_map", village_map);
-    this.load.atlas("misa_atlas", misa_atlas, misa_atlas_json);
   }
   create() {
     
