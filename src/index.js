@@ -37,13 +37,6 @@ window.addEventListener(
   },
   { once: true }
 );
-window.addEventListener(
-  "mousedown",
-  () => {
-    game.config.hasTouch = false;
-  },
-  { once: true }
-);
 
 document.getElementById("intro__ok").onclick = () => {
   document.getElementById("intro").classList.add("not-displayed");
