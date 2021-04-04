@@ -24,4 +24,28 @@ const Config = {
   scene: [Preload, WorldScene],
 };
 
-new Phaser.Game(Config);
+let game = new Phaser.Game(Config);
+
+// custom config
+game.config.hasTouch = false;
+game.config.isStarting = false;
+
+window.addEventListener(
+  "touchstart",
+  () => {
+    game.config.hasTouch = true;
+  },
+  { once: true }
+);
+window.addEventListener(
+  "mousedown",
+  () => {
+    game.config.hasTouch = false;
+  },
+  { once: true }
+);
+
+document.getElementById("intro__ok").onclick = () => {
+  document.getElementById("intro").classList.add("not-displayed");
+  game.config.isStarting = true;
+};

@@ -22,16 +22,19 @@ export type DpadDirections = {
   up: boolean;
   down: boolean;
 };
-export function getDpad() {
+export function initDpadForTouch(hasTouch: boolean) {
+  
   var held_directions: DpadDirections = {
     left: false,
     right: false,
     up: false,
     down: false,
   };
-  window.addEventListener('touchstart', () =>{
-    document.querySelector(".dpad").classList.remove("not-displayed");
-  }, {once:true});
+
+  if(!hasTouch) return held_directions;
+
+  document.querySelector(".dpad").classList.remove("not-displayed");
+
   const directions = {
     left: "left",
     right: "right",

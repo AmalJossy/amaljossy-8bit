@@ -1,7 +1,7 @@
 import Player, { PlayerTexture } from "../Player";
 import { createPlayerAnims } from "../utils/anims";
 import { Scene } from "phaser";
-import { DpadDirections, getDpad, writeMessage } from "../utils/hud";
+import { DpadDirections, initDpadForTouch, writeMessage } from "../utils/hud";
 
 export default class WorldScene extends Scene {
   player: Player;
@@ -68,7 +68,6 @@ export default class WorldScene extends Scene {
         const sign = this.signGroup.create(obj.x, obj.y, null);
         sign.properties = obj.properties;
         sign.alpha = 0;
-        console.log(sign);
       }
     });
 
@@ -77,7 +76,8 @@ export default class WorldScene extends Scene {
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
     this.cursors = this.input.keyboard.createCursorKeys();
-    this.dpadDirections = getDpad()
+    // @ts-ignore
+    this.dpadDirections = initDpadForTouch(this.game.config.hasTouch)
   }
 
   update() {

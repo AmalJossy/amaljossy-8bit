@@ -18,13 +18,10 @@ export default class Preload extends Scene {
     this.load.tilemapTiledJSON("village_map", village_map);
     this.load.atlas("misa_atlas", misa_atlas, misa_atlas_json);
   }
-  create() {
-    this.text = this.add.text(32, 32, "Click to start load", {
-      color: "#ffffff",
-    });
-    setTimeout(() => {
-      this.scene.start("world");
-    }, 3000);
-  }
 
+  update() {
+    // @ts-ignore
+    if (this.game.config.isStarting) {
+      this.scene.start("world")};
+  }
 }

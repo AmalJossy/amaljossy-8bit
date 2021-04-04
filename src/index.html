@@ -8,6 +8,9 @@
     <style>
       :root {
         --pixel-size: 4px;
+        --inner: cornflowerblue;
+        --border: black;
+        --accent: white;
       }
       * {
         box-sizing: border-box;
@@ -21,10 +24,10 @@
         width: 100%;
         overflow: hidden;
       }
-      div#game-area {
+      #game-area {
         background-color: grey;
       }
-      div.fixed-container {
+      .fixed-container {
         position: fixed;
         width: 100%;
         left: 0;
@@ -34,7 +37,7 @@
         display: flex;
         justify-content: center;
       }
-      div#message-box {
+      #message-box {
         background-color: rgb(224, 224, 224);
         border: solid 3px black;
         border-radius: 5px;
@@ -42,7 +45,7 @@
         width: 60%;
         visibility: hidden;
       }
-      p#message-area {
+      #message-area {
         font-family: "Courier";
         font-size: 20px;
         overflow: hidden;
@@ -50,10 +53,10 @@
         margin: 10px 0 0 10px;
         width: 100%;
       }
-      p.typewriter {
+      .typewriter {
         animation: type 0.3s steps(16, end);
       }
-      p.typewriter:nth-child(2) {
+      .typewriter:nth-child(2) {
         animation: type2 0.6s steps(16, end);
       }
 
@@ -129,12 +132,95 @@
       }
 
       .not-displayed {
-        display: none;
+        /* ++ specificity */
+        display: none !important;
+      }
+      #intro {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #intro__notok {
+        text-decoration: none;
+        color: black;
+        background-color: rgba(255, 255, 255, 0.5);
+        padding: 0 6px;
+        border-radius: var(--pixel-size);
+      }
+      #intro__notok:hover,
+      #intro__notok:focus {
+        text-decoration: underline;
+        background-color: rgba(255, 255, 255, 0.7);
+      }
+      #intro > div {
+        padding: 0 12px;
+        margin: 0 12px;
+      }
+      #intro > div > div {
+        display: flex;
+        justify-content: space-around;
+      }
+      .pxl-border {
+        /*https://codepen.io/fallwestmike/pen/ezOGJK*/
+        background: var(--inner);
+        box-shadow:
+    /* Inner Background Color -- Same as inner */ 0 -6px 0 -2px
+            var(--inner),
+          0 6px 0 -2px var(--inner), 0 -12px 0 -4px var(--inner),
+          0 12px 0 -4px var(--inner), 0 -18px 0 -8px var(--inner),
+          0 18px 0 -8px var(--inner), 0 -24px 0 -12px var(--inner),
+          0 24px 0 -12px var(--inner),
+          /* Inner Border */ -2px 0 0 0 var(--border), 2px 0 0 0 var(--border),
+          0 -4px 0 0 var(--border), 0 4px 0 0 var(--border),
+          0 -10px 0 -2px var(--border), 0 10px 0 -2px var(--border),
+          0 -14px 0 -4px var(--border), 0 14px 0 -4px var(--border),
+          0 -20px 0 -8px var(--border), 0 20px 0 -8px var(--border),
+          0 -26px 0 -12px var(--border), 0 26px 0 -12px var(--border),
+          /* Middle Border -- Accent */ -4px 0 0 0 var(--accent),
+          4px 0 0 0 var(--accent), 0 -2px 0 2px var(--accent),
+          0 2px 0 2px var(--accent), 0 -8px 0 0px var(--accent),
+          0 8px 0 0px var(--accent), 0 -12px 0 -2px var(--accent),
+          0 12px 0 -2px var(--accent), 0 -16px 0 -4px var(--accent),
+          0 16px 0 -4px var(--accent), 0 -22px 0 -8px var(--accent),
+          0 22px 0 -8px var(--accent), 0 -28px 0 -12px var(--accent),
+          0 28px 0 -12px var(--accent),
+          /* Outer Border */ -6px 0 0 0 var(--border), 6px 0 0 0 var(--border),
+          0 0 0 4px var(--border), 0 -6px 0 2px var(--border),
+          0 6px 0 2px var(--border), 0 -10px 0 0 var(--border),
+          0 10px 0 0 var(--border), 0 -14px 0 -2px var(--border),
+          0 14px 0 -2px var(--border), 0 -18px 0 -4px var(--border),
+          0 18px 0 -4px var(--border), 0 -24px 0 -8px var(--border),
+          0 24px 0 -8px var(--border), 0 -30px 0 -12px var(--border),
+          0 30px 0 -12px var(--border);
       }
     </style>
   </head>
   <body>
     <div id="game-area"></div>
+    <div id="intro">
+      <div class="pxl-border">
+        <p>
+          So, I tried turning my portfolio website into a top-down style arcade
+          game
+        </p>
+        <p>
+          It looks fun but I also have a regular portfolio website with my blog
+          on it
+        </p>
+        <p>Click Okay to start the game</p>
+        <div>
+          <button id="intro__ok">Okay</button
+          ><a id="intro__notok" href="https://amaljossy.netlify.app"
+            >Take me to a regular website</a
+          >
+        </div>
+      </div>
+    </div>
     <div class="fixed-container">
       <div id="message-box"><p id="message-area">sample text</p></div>
     </div>
