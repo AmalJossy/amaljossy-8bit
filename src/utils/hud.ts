@@ -1,13 +1,19 @@
 const messageBox = document.getElementById("message-box");
 const messageArea = document.getElementById("message-area");
-
+let _message = "";
+let timeout: NodeJS.Timeout = null;
 export const writeMessage = (message: string) => {
-  if (messageArea.textContent !== message) {
-    console.log(message);
-    messageArea.textContent = message;
-    messageArea.classList.remove("typewriter");
-    void messageArea.offsetWidth;
-    messageArea.classList.add("typewriter");
+  if (_message !== message) {
+    clearInterval(timeout);
+    messageArea.textContent = "";
+    _message = message;
+    let i = 0;
+    timeout = setInterval(() => {
+      if (messageArea.textContent.length < _message.length){
+        messageArea.textContent += _message.slice(i * 10, (i + 1) * 10);
+        i++;
+      }
+    }, 50);
     if (message === "") {
       messageBox.style.visibility = "hidden";
     } else {
@@ -23,7 +29,6 @@ export type DpadDirections = {
   down: boolean;
 };
 export function initDpadForTouch(hasTouch: boolean) {
-  
   var held_directions: DpadDirections = {
     left: false,
     right: false,
@@ -31,7 +36,7 @@ export function initDpadForTouch(hasTouch: boolean) {
     down: false,
   };
 
-  if(!hasTouch) return held_directions;
+  if (!hasTouch) return held_directions;
 
   document.querySelector(".dpad").classList.remove("not-displayed");
 

@@ -32,8 +32,7 @@
         width: 100%;
         left: 0;
         right: 0;
-        bottom: 0;
-        height: 120px;
+        bottom: 10px;
         display: flex;
         justify-content: center;
       }
@@ -41,42 +40,25 @@
         background-color: rgb(224, 224, 224);
         border: solid 3px black;
         border-radius: 5px;
-        height: 100px;
+        height: 120px;
         width: 60%;
         visibility: hidden;
+      }
+      @media (max-width: 768px) {
+        .fixed-container {
+          top:10px;
+          bottom: initial;
+        }
+        #message-box {
+          width: 90%;
+        }
       }
       #message-area {
         font-family: "Courier";
         font-size: 20px;
-        overflow: hidden;
         white-space: normal;
         margin: 10px 0 0 10px;
         width: 100%;
-      }
-      .typewriter {
-        animation: type 0.3s steps(16, end);
-      }
-      .typewriter:nth-child(2) {
-        animation: type2 0.6s steps(16, end);
-      }
-
-      @keyframes type {
-        from {
-          width: 0;
-          white-space: nowrap;
-        }
-      }
-
-      @keyframes type2 {
-        0% {
-          width: 0;
-        }
-        50% {
-          width: 0;
-        }
-        100% {
-          width: 100;
-        }
       }
 
       .dpad {
