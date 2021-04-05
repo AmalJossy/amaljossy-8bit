@@ -5,13 +5,13 @@ import WorldScene from "./scenes/World.scene";
 
 const Config = {
   type: Phaser.AUTO,
-  width: 800,
-  height: 450,
+  width: window.innerWidth*.52, // no definitive guides
+  height:  window.innerHeight*.52, // value from trial and error
   pixelArt: true,
 
   // Sets game scaling
   scale: {
-    mode: Phaser.Scale.ENVELOP, // Fit to window
+    mode: Phaser.Scale.FIT, // Fit to window
     autoCenter: Phaser.Scale.CENTER_BOTH, // Center vertically and horizontally
     parent: "game-area",
   },
