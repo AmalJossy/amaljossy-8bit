@@ -5,6 +5,7 @@ import work_png from "../assets/tilesets/work.png";
 import village_map from "../assets/tilemaps/world.json";
 import misa_atlas from "../assets/sprites/misa.png";
 import misa_atlas_json from "../assets/sprites/misa.json";
+import arth_png from "../assets/textures/arth.png";
 
 export default class Preload extends Scene {
   text: Phaser.GameObjects.Text;
@@ -17,6 +18,7 @@ export default class Preload extends Scene {
     this.load.image("work_png", work_png);
     this.load.tilemapTiledJSON("village_map", village_map);
     this.load.atlas("misa_atlas", misa_atlas, misa_atlas_json);
+    this.load.image("arth_png", arth_png);
   }
 
   update() {

@@ -10,12 +10,13 @@ export default class WorldScene extends Scene {
   signBoards: Phaser.Types.Tilemaps.TiledObject[];
   message: string;
   dpadDirections: DpadDirections;
+  screenGroup: Phaser.Physics.Arcade.StaticGroup;
+  messageType: any;
 
   constructor() {
     super({ key: "world" });
   }
   create() {
-    
     const map = this.make.tilemap({ key: "village_map" });
     const village_tileset = map.addTilesetImage(
       "village_atlas_16x",
@@ -62,12 +63,34 @@ export default class WorldScene extends Scene {
     this.physics.add.collider(this.player, worldLayer);
 
     this.signGroup = this.physics.add.staticGroup();
+    this.screenGroup = this.physics.add.staticGroup();
 
     objectLayer.objects.forEach((obj) => {
       if (obj.type === "Sign") {
-        const sign = this.signGroup.create(obj.x, obj.y, null);
+        const sign: Phaser.Physics.Arcade.Sprite = this.signGroup.create(
+          obj.x + 8,
+          obj.y + 8,
+          null
+        );
+        // @ts-ignore
         sign.properties = obj.properties;
         sign.alpha = 0;
+      }
+      if (obj.type == "Screen") {
+        let texture = null;
+
+        switch (obj.name) {
+          case "Screen1":
+            texture = "arth_png";
+        }
+        console.log({ obj, texture });
+        const screen: Phaser.Physics.Arcade.Sprite = this.screenGroup
+          .create(obj.x, obj.y, texture)
+          .setDisplaySize(60, 26)
+          .setDisplayOrigin(0.5, 0.5);
+        if (!texture) screen.alpha = 0;
+        // console.log(screen);
+        screen.depth = 6;
       }
     });
 
@@ -77,11 +100,11 @@ export default class WorldScene extends Scene {
 
     this.cursors = this.input.keyboard.createCursorKeys();
     // @ts-ignore
-    this.dpadDirections = initDpadForTouch(this.game.config.hasTouch)
+    this.dpadDirections = initDpadForTouch(this.game.config.hasTouch);
   }
 
   update() {
-    this.player.update(this.cursors,this.dpadDirections);
+    this.player.update(this.cursors, this.dpadDirections);
     this.physics.world.overlap(
       this.player,
       this.signGroup,
@@ -89,8 +112,7 @@ export default class WorldScene extends Scene {
       null,
       this
     );
-    if(this.message!==undefined)
-      this.showSignMessage();
+    if (this.message !== undefined) this.showSignMessage();
   }
 
   // @ts-ignore //TODO optimize, debounce ?
@@ -99,10 +121,16 @@ export default class WorldScene extends Scene {
       // @ts-ignore
       (o) => o.name === "message"
     )?.value;
+    this.messageType = gameObject.properties.find(
+      // @ts-ignore
+      (o) => o.name === "contentType"
+    )?.value;
   }
   showSignMessage() {
-    writeMessage(this.message);
-    if(this.message!=="")
-      this.message=""
+    writeMessage(this.message, this.messageType);
+    if (this.message !== "") {
+      this.message = "";
+      this.messageType = "text";
+    }
   }
 }
