@@ -201,7 +201,7 @@
                         {
                          "name":"message",
                          "type":"string",
-                         "value":"Project: ARTreasureHunt, An Augmented Reality Treasure Hunt game Build using Unity and Vuforia, <a href=\"https:\/\/github.com\/AmalJossy\/ARTreasureHunt\">\ud83d\udd17 Github<\/a>"
+                         "value":"Project: ARTreasureHunt, An Augmented Reality Treasure Hunt game Build using Unity and Vuforia, <a href=\"https:\/\/github.com\/AmalJossy\/ARTreasureHunt\">\ud83d\udd17Github<\/a>"
                         }],
                  "rotation":0,
                  "type":"Sign",
