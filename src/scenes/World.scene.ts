@@ -82,6 +82,13 @@ export default class WorldScene extends Scene {
         switch (obj.name) {
           case "Screen1":
             texture = "arth_png";
+            break;
+          case "Screen2":
+            texture = "music_png";
+            break;
+          case "Screen3":
+            texture = "aa_png";
+            break;
         }
         console.log({ obj, texture });
         const screen: Phaser.Physics.Arcade.Sprite = this.screenGroup
