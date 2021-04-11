@@ -22,7 +22,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     super(scene, x, y, texture, frame);
     scene.add.existing(this);
     scene.physics.add.existing(this);
-    this.setBodySize(30, 10).setOffset(0, 20).setScale(.7);
+    this.setBodySize(30, 10).setOffset(0, 20).setScale(.6,.7);
 
     // this.body.onCollide = true;
     // scene.physics.world.on(Phaser.Physics.Arcade.Events.COLLIDE, this.handleTileCollision, this);
