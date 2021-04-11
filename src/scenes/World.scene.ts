@@ -56,8 +56,8 @@ export default class WorldScene extends Scene {
       this,
       spawnPoint.x,
       spawnPoint.y,
-      "misa_atlas",
-      "misa-front"
+      "player_atlas",
+      "player-front.000"
     );
     createPlayerAnims(this.anims);
     this.physics.add.collider(this.player, worldLayer);

@@ -22,7 +22,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     super(scene, x, y, texture, frame);
     scene.add.existing(this);
     scene.physics.add.existing(this);
-    this.setBodySize(30, 10).setOffset(0, 54).setScale(0.5);
+    this.setBodySize(30, 10).setOffset(0, 20).setScale(.7);
 
     // this.body.onCollide = true;
     // scene.physics.world.on(Phaser.Physics.Arcade.Events.COLLIDE, this.handleTileCollision, this);
@@ -63,24 +63,24 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
 
     // Update the animation last and give left/right animations precedence over up/down animations
     if (cursors.left.isDown || dpadDirections.left) {
-      this.anims.play("misa-left-walk", true);
+      this.anims.play("player-left", true);
     } else if (cursors.right.isDown || dpadDirections.right) {
-      this.anims.play("misa-right-walk", true);
+      this.anims.play("player-right", true);
     } else if (cursors.up.isDown || dpadDirections.up) {
-      this.anims.play("misa-back-walk", true);
+      this.anims.play("player-up", true);
     } else if (cursors.down.isDown || dpadDirections.down) {
-      this.anims.play("misa-front-walk", true);
+      this.anims.play("player-down", true);
     } else {
       this.anims.stop();
 
       // If we were moving, pick and idle frame to use
-      if (prevVelocity.x < 0) this.setTexture(this.texture.key, "misa-left");
+      if (prevVelocity.x < 0) this.setTexture(this.texture.key, "player-left.000");
       else if (prevVelocity.x > 0)
-        this.setTexture(this.texture.key, "misa-right");
+        this.setTexture(this.texture.key, "player-right.000");
       else if (prevVelocity.y < 0)
-        this.setTexture(this.texture.key, "misa-back");
+        this.setTexture(this.texture.key, "player-up.000");
       else if (prevVelocity.y > 0)
-        this.setTexture(this.texture.key, "misa-front");
+        this.setTexture(this.texture.key, "player-down.000");
     }
   }
 }
