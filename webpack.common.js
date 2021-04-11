@@ -13,12 +13,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|gif|csv)$/i,
-        use: [
-          {
-            loader: "file-loader",
-          },
-        ],
+        test: /\.(png|jpe?g|json)$/,
+        type: 'asset/resource'
       },
       {
         test: /\.(js|ts)$/,
@@ -34,11 +30,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       filename: "./index.html",
-    }),
-    new CopyWebpackPlugin({
-      patterns: [
-        { from: "./src/assets", to: "assets", noErrorOnMissing: true },
-      ],
     }),
   ],
   output: {

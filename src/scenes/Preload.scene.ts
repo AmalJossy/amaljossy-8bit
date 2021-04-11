@@ -28,6 +28,7 @@ export default class Preload extends Scene {
   update() {
     // @ts-ignore
     if (this.game.config.isStarting) {
-      this.scene.start("world")};
+      this.scene.start("world");
+    }
   }
 }
