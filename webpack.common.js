@@ -13,8 +13,15 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(png|jpe?g|json)$/,
+        test: /\.(png|jpe?g)$/,
         type: 'asset/resource'
+      },
+      {
+        test: /\.json$/,
+        type: 'asset/resource',
+        generator : {
+          filename : '[base]'
+        }
       },
       {
         test: /\.(js|ts)$/,
