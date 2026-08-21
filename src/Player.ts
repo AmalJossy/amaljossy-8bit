@@ -1,3 +1,4 @@
+import Phaser from "phaser";
 import { DpadDirections } from "./utils/hud";
 
 export interface PlayerTexture {

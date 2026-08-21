@@ -1,0 +1,8 @@
+# Amal Jossy Portfolio
+
+Interactive arcade-style portfolio for Amal Jossy, with project highlights and links to the blog.
+
+## Links
+
+- [Blog](https://blog.amaljossy.com/)
+- [GitHub](https://github.com/AmalJossy/)

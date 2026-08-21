@@ -4,6 +4,18 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Portfolio of Amal Jossy, presented as a top-down arcade-style Phaser game with projects, experiments, and blog links."
+    />
+    <meta property="og:title" content="Amal Jossy" />
+    <meta
+      property="og:description"
+      content="Arcade-style interactive portfolio of Amal Jossy."
+    />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>Amal Jossy</title>
     <style>
       :root {
@@ -53,6 +65,15 @@
         }
         #message-box {
           width: 90%;
+        }
+        #intro {
+          padding: 16px;
+        }
+        #intro > div {
+          max-width: 92vw;
+        }
+        .pxl-border {
+          font-size: 14px;
         }
       }
       #message-area {
@@ -147,6 +168,10 @@
           0 2px 0 0 black, inset -1px -1px 0 0 white;
         color: #6dd4da;
       }
+      .pxl-border a {
+        color: #001f4d;
+        font-weight: 600;
+      }
       #intro__notok {
         text-decoration: none;
         color: black;
@@ -201,9 +226,6 @@
           0 30px 0 -12px var(--border);
       }
     </style>
-    <link rel="prefetch" href="world.json" />
-    <!-- these should be added by webpack :( -->
-    <link rel="prefetch" href="player.json" />
   </head>
   <body>
     <div id="game-area"></div>
@@ -230,6 +252,7 @@
           >
         </p>
         <p>Click Okay to start the game</p>
+        <p>Use arrow keys or the on-screen D-pad to move around.</p>
         <div>
           <button id="intro__ok">Okay</button
           ><a id="intro__notok" href="https://blog.amaljossy.com"
@@ -243,7 +266,7 @@
     </div>
     <div class="dpad not-displayed">
       <div class="DemoDirectionUI flex-center">
-        <button class="dpad-button dpad-left">
+        <button class="dpad-button dpad-left" aria-label="Move left">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 -0.5 13 13"
@@ -278,7 +301,7 @@
             <path class="Arrow_front" stroke="#cccccc" d="M1 10h11M1 11h11" />
           </svg>
         </button>
-        <button class="dpad-button dpad-up">
+        <button class="dpad-button dpad-up" aria-label="Move up">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 -0.5 13 13"
@@ -309,7 +332,7 @@
             <path class="Arrow_front" stroke="#cccccc" d="M1 10h11M1 11h11" />
           </svg>
         </button>
-        <button class="dpad-button dpad-down">
+        <button class="dpad-button dpad-down" aria-label="Move down">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 -0.5 13 13"
@@ -336,7 +359,7 @@
             <path class="Arrow_front" stroke="#cccccc" d="M1 10h11M1 11h11" />
           </svg>
         </button>
-        <button class="dpad-button dpad-right">
+        <button class="dpad-button dpad-right" aria-label="Move right">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 -0.5 13 13"
@@ -373,5 +396,6 @@
         </button>
       </div>
     </div>
+    <script type="module" src="/src/index.js"></script>
   </body>
 </html>

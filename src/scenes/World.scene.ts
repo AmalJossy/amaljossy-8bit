@@ -57,7 +57,7 @@ export default class WorldScene extends Scene {
       spawnPoint.x,
       spawnPoint.y,
       "player_atlas",
-      "player-front.000"
+      "player-down.000"
     );
     createPlayerAnims(this.anims);
     this.physics.add.collider(this.player, worldLayer);
@@ -90,7 +90,6 @@ export default class WorldScene extends Scene {
             texture = "aa_png";
             break;
         }
-        console.log({ obj, texture });
         const screen: Phaser.Physics.Arcade.Sprite = this.screenGroup
           .create(obj.x, obj.y, texture)
           .setDisplaySize(60, 26)
