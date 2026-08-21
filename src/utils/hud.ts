@@ -1,7 +1,7 @@
 const messageBox = document.getElementById("message-box");
 const messageArea = document.getElementById("message-area");
 let _message = "";
-let timeout: NodeJS.Timeout = null;
+let timeout: ReturnType<typeof setInterval> | null = null;
 export const writeMessage = (message: string, writeMode: "html" | "text") => {
   if (_message !== message) {
     clearInterval(timeout);

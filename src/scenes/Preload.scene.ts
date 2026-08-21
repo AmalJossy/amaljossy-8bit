@@ -2,9 +2,9 @@ import { Scene } from "phaser";
 
 import village_png from "../assets/tilesets/village_atlas_16x.png";
 import work_png from "../assets/tilesets/work.png";
-import village_map from "../assets/tilemaps/world.json";
+import village_map from "../assets/tilemaps/world.json?url";
 import player_atlas from "../assets/sprites/player.png";
-import player_atlas_json from "../assets/sprites/player.json";
+import player_atlas_json from "../assets/sprites/player.json?url";
 import arth_png from "../assets/textures/arth.png";
 import music_png from "../assets/textures/music.png";
 import aa_png from "../assets/textures/aa.png";
