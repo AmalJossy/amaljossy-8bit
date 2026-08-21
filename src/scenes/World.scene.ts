@@ -12,6 +12,7 @@ export default class WorldScene extends Scene {
   dpadDirections: DpadDirections;
   screenGroup: Phaser.Physics.Arcade.StaticGroup;
   messageType: any;
+  playerPositionOverlay?: Phaser.GameObjects.Text;
 
   constructor() {
     super({ key: "world" });
@@ -104,6 +105,23 @@ export default class WorldScene extends Scene {
     camera.startFollow(this.player);
     camera.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
 
+    if (
+      import.meta.env.DEV &&
+      import.meta.env.VITE_SHOW_PLAYER_POSITION === "true"
+    ) {
+      this.playerPositionOverlay = this.add
+        .text(8, 8, "", {
+          color: "#ffffff",
+          backgroundColor: "#000000",
+          fontFamily: "monospace",
+          fontSize: "12px",
+          padding: { x: 5, y: 3 },
+        })
+        .setScrollFactor(0)
+        .setDepth(1000);
+      this.updatePlayerPositionOverlay();
+    }
+
     this.cursors = this.input.keyboard.createCursorKeys();
     // @ts-ignore
     this.dpadDirections = initDpadForTouch(this.game.config.hasTouch);
@@ -111,6 +129,7 @@ export default class WorldScene extends Scene {
 
   update() {
     this.player.update(this.cursors, this.dpadDirections);
+    this.updatePlayerPositionOverlay();
     this.physics.world.overlap(
       this.player,
       this.signGroup,
@@ -119,6 +138,18 @@ export default class WorldScene extends Scene {
       this
     );
     if (this.message !== undefined) this.showSignMessage();
+  }
+
+  updatePlayerPositionOverlay() {
+    if (!this.playerPositionOverlay) return;
+
+    const x = Math.round(this.player.x);
+    const y = Math.round(this.player.y);
+    const tileX = Math.floor(x / 16);
+    const tileY = Math.floor(y / 16);
+    this.playerPositionOverlay.setText(
+      `Player x: ${x}, y: ${y} | tile x: ${tileX}, y: ${tileY}`
+    );
   }
 
   // @ts-ignore //TODO optimize, debounce ?
